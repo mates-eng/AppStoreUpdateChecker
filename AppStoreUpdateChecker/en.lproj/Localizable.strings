@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  AppStoreUpdateChecker
+
+  Created by MTIshiwata on 2019/09/18.
+  Copyright © 2019 Mates Inc. All rights reserved.
+*/
+
+"Confirm" = "Confirm";
+"NewAppVersionMessage" = "A new version released of the this app.\nPlease update.";
+"OK" = "OK";
