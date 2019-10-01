@@ -10,10 +10,10 @@ import UIKit
 
 public class AppStoreUpdateChecker {
     
-    /// Show alert when there is an update using the Bundle Identier of the calling Project.
-    /// - Parameter setBundleID: When using any bundle identifer.
+    /// Check the Bundle Identifier of the calling Project and show an alert when the update is needed.
+    /// - Parameter setBundleID: When using any bundle identifier.
     /// - Parameter setAppVersion: When using any app version.
-    /// - Parameter completion: Closure is executes when "OK" is tap on alert. Returns the URL to update.
+    /// - Parameter completion: The closure is executed when "OK" is tapped on the alert. Returns the URL to update.
     static public func check(setBundleID: String? = nil, setAppVersion: String? = nil, completion: ( (_ appUpdateURL: URL?) -> Void )? ) {
         if setBundleID != nil {
             self.setBundleID = setBundleID
@@ -33,19 +33,19 @@ public class AppStoreUpdateChecker {
 }
 
 private extension AppStoreUpdateChecker {
-    /// Any bundle identifer.
+    /// Any bundle identifier.
     static var setBundleID: String?
     /// Any app version.
     static var setAppVersion: String?
-    /// Requst timeout constant.
+    /// Request timeout constant.
     static let defaultTimeOutIntervalForRequest = 30.0
     /// Response timeout constant.
     static let defaultTimeOutIntervalForResouse = 30.0
     /// Maximum connection constant per host.
     static let httpMaximumConnectionPerHost = 1
     
-    /// Get check to bundle identifier.
-    /// - Returns: Check to bundle identifier.
+    /// Get the Bundle Identifier.
+    /// - Returns: The Bundle Identifier of the calling Project
     static func checkBundleID() -> String? {
         if setBundleID != nil {
             return setBundleID
@@ -55,8 +55,8 @@ private extension AppStoreUpdateChecker {
         return bundleID
     }
     
-    /// get check to app version.
-    /// - Returns: Check to app version.
+    /// Get the app version.
+    /// - Returns: The app version of the calling Project.
     static func checkAppVersion() -> String? {
         if setAppVersion != nil {
             return setAppVersion
@@ -66,8 +66,8 @@ private extension AppStoreUpdateChecker {
         return currentVersion
     }
     
-    /// Get JSON URL in AppStore.
-    /// - Returns: Get URL for JSON.
+    /// Get JSON URL for AppStore.
+    /// - Returns: URL for JSON.
     static func checkURL() -> URL? {
         guard let myBundleID = checkBundleID() else { return nil }
         let urlString = "https://itunes.apple.com/lookup?bundleId=\(myBundleID)&country=JP"
@@ -77,7 +77,7 @@ private extension AppStoreUpdateChecker {
     
     /// Get results on connection to fixes URL.
     /// - Parameter completion: Check updated and return update URL.
-    ///                         if it failed, return false on isUpdate and nil on appdateURL.
+    ///                         If the method fails, it will set false to isUpdate and nil to appUpdateURL.
     static func updateCheckWith(completion: @escaping (_ isUpdate: Bool, _ appUpdateURL: URL?) -> Void) {
         guard let checkURL = checkURL() else { completion(false, nil); return }
         connectionWith(url: checkURL, completion: completion)
@@ -93,10 +93,10 @@ private extension AppStoreUpdateChecker {
         return sessionConfigration
     }
     
-    /// If it connection error, output log.
+    /// If the connection has an error, output log.
     /// - Parameter url: Update URL.
     /// - Parameter completion: Check updated and return update URL.
-    ///                         if it failed return false on isUpdate and nil on appdateURL.
+    ///                         If the method fails, it will set false to isUpdate and nil to appUpdateURL.
     static func connectionWith(url: URL, completion: @escaping (_ isUpdate: Bool, _ appUpdateURL: URL?) -> Void) {
         let session =  URLSession(configuration: defaultSessionConfigration)
         let request = URLRequest(url: url)
@@ -132,11 +132,11 @@ private extension AppStoreUpdateChecker {
         task.resume()
     }
     /// Checking on response code.
-    /// If it resonse code is 3xx, out put log.
-    /// If it resonse code is 4xx or 5xx, out put log and error.
+    /// If the response code is “3xx”, out put log.
+    /// If the response code is “4xx” or “5xx”, out put log and error.
     /// - Parameter response: response data
     /// - Parameter completion: Check updated and return update URL.
-    ///                         if it failed return false on isUpdate and nil on appdateURL.
+    ///                         If the method fails, it will set false to isUpdate and nil to appUpdateURL.
     static func responseCodeCheck(response: URLResponse?,
                                   completion: @escaping (_ isUpdate: Bool, _ appUpdateURL: URL?) -> Void) {
         guard let httpURLResponse = response as? HTTPURLResponse else { return }
@@ -159,9 +159,9 @@ private extension AppStoreUpdateChecker {
         }
     }
     
-    /// analyze on response data.
-    /// If it response dictionary in exist "resultCount" key or that value then over 0, continue.
-    /// And if it response dictionary in exist "result" key and that in value exist "version" key, continue.
+    /// Analyze the response data.
+    /// If the dictionary has the value of "resultCount" key and the value is over 0, the method will continue.
+    /// If the dictionary has the value of “result” key and the first element of the value has the value of “version” key, the method will continue.
     /// - Parameter dictionay: JSON parsed ddictionary.
     /// - Parameter completion: Check updated and return update URL.
     ///                         if it failed return false on isUpdate and nil on appdateURL.
@@ -184,11 +184,11 @@ private extension AppStoreUpdateChecker {
         checkVersion(with: checkedVersion, updatePath: updatePath, completion: completion)
     }
     
-    /// If it then over this app version on App Store version,  Return true and update URL.
+    /// If the version of the App on App Store is not latest, the method will set the update info.
     /// - Parameter checkVersion: is appversion
     /// - Parameter updatePath: update URL.
     /// - Parameter completion: Check updated and return update URL.
-    ///                         if it failed return false on isUpdate and nil on appdateURL.
+    ///                         If the method fails, it will set false to isUpdate and nil to appdateURL.
     static func checkVersion(with checkedVersion: String, updatePath: String?,
                              completion: @escaping (_ isUpdate: Bool, _ appUpdateURL: URL?) -> Void) {
         let errorCompletion = { completion(false, nil) }
@@ -214,7 +214,7 @@ private extension AppStoreUpdateChecker {
     }
     
     /// Display alert
-    /// - Parameter completion: If it touchup inside button in alert, run closure.
+    /// - Parameter completion: If the button on the alert is tapped, the method will execute closure.
     static func showAlert(_ completion: ( () -> Void )? ) {
         let alertController = UIAlertController(
             title: AppStoreUpdateCheckerLocalizedStringKeys.confirm.localized(),

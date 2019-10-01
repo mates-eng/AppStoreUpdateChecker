@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Localized String enums.
+/// Localized String cases.
 enum AppStoreUpdateCheckerLocalizedStringKeys: String {
     case confirm = "Confirm"
     case okButton = "OK"
