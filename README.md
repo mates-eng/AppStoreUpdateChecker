@@ -1,5 +1,4 @@
 AppStoreUpdateChecker
-
 ======
 
 [![Version](https://img.shields.io/cocoapods/v/AppStoreUpdateChecker.svg?style=flat)](http://cocoadocs.org/docsets/AppStoreUpdateChecker)
