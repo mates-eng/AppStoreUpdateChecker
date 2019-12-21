@@ -14,12 +14,12 @@ AppStoreUpdateChecker.check { updateURL in
 
 ## Requirements
 
-- Swift 4.2 or later
+- Swift 5.0 or later
 - iOS 9.3 or later
 
 ## Installation
 
 #### [CocoaPods](https://github.com/cocoapods/cocoapods)
 
-- Insert `pod 'AppStoreUpdateChecker', '~> 1.0'` to your Podfile.
+- Insert `pod 'AppStoreUpdateChecker', '~> 1.1'` to your Podfile.
 - Run `pod install`.

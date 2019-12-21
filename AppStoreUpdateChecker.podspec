@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "AppStoreUpdateChecker"
-  spec.version      = "1.0"
+  spec.version      = "1.1"
   spec.summary      = "AppStoreUpdateChecker can notify you if you need to update your app."
 
   # This description is used to generate tags and improve search results.
@@ -17,6 +17,6 @@ Pod::Spec.new do |spec|
   spec.platform     = :ios, "9.3"
   spec.source       = { :git => "https://github.com/mates-eng/AppStoreUpdateChecker.git", :tag => "#{spec.version}" }
   spec.source_files = 'AppStoreUpdateChecker/**/*.{swift}' 
-  spec.swift_version = "4.2"
+  spec.swift_version = "5.0"
   spec.requires_arc = true
 end
